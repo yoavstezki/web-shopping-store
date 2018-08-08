@@ -12,10 +12,8 @@ router.post('/register', (req, res, next) => {
     console.log("Server - post  user/register");
     const newUser = getUser(req);
     console.log("saving user...");
-    User.findUser(newUser.username, err => saveUser(newUser, res, 'User Registerd'), user => {
-        console.log("user alredy exists...");
-        res.json({success: false, msg:'User with the same username is already exists'});
-    }); 
+    User.addUser(newUser, err => res.json({success: false, msg:'Register user failed'}),
+                          callback => res.json({success:true, msg:"User Registerd"}) ); 
 });
 
 // Authenticate
@@ -36,17 +34,11 @@ router.get('/userslist', (req, res, next) => {
 router.post('/delete',(req,res,next) => {
     console.log("Server - post  user/delete");
     const user = getUser(req);
-    User.deleteUser(user.username, err => res.json({success: false, msg:'delete opperation failed'}), 
+    User.deleteUser(user.username, err => res.json({success: false, msg:'Delete opperation failed'}), 
                           callback => res.json({success: true, msg:`Success to delete ${user.username}`}))
 });
 
 module.exports = router;
-
-function saveUser(user, res, successMsg) {
-    user.save()
-        .then(result => { console.log('saving result: ' + result); res.json({success:true, msg:successMsg}); })
-        .catch(err => { res.json({success:false, msg:'Failed to save user'}); console.log(err);});
-}
 
 function getUser(req) {
     if(req.body)

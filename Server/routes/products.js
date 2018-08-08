@@ -58,6 +58,7 @@ router.post('/search', (req, res, next) => {
         category: req.body.category,
         price: req.body.price
     };
+    console.log(`recived price: ${product.price}`)
     if (product.price == '') {
         product.price = 1000000;
     }
@@ -94,7 +95,6 @@ function saveProduct(product, res, successMsg) {
 function getProduct(req) {
     if(req.body)
     return  new Product({
-
         serialNumber: req.body.serialNumber,
         productName: req.body.productName,
         productCategory: req.body.productCategory,

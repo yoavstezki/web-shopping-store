@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const bcrypt = require('bcrypt');
+
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -22,15 +24,34 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model("User", UserSchema);
 
+module.exports.addUser = (newUser, errorAction, callbcakAction) => {
+    User.findOne({'username': newUser.username},  (err, user) => {
+        if (user) {
+            errorAction();
+        }
+        else {
+            bcrypt.genSalt(10, (err, salt) => {
+                bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    if(err) {
+                        errorAction();
+                    }
+                    newUser.password = hash;
+                    newUser.save().then(callbcakAction).catch(errorAction);
+                });
+            });
+        }
+    });
+}
+
 module.exports.findUser = (username, errorAction, userAction) =>{
-User.findOne({'username': username},  (err, user) => {
-    if(user){
-        userAction(user);
-    }
-    else{
-        errorAction(err);
-    }
-});
+    User.findOne({'username': username},  (err, user) => {
+        if (user) {
+            userAction(user);
+        }
+        else{
+            errorAction(err);
+        }
+    });
 };
 
 module.exports.findAllUsers = (errorAction, usersAction) => User.find((err, users)=>{
