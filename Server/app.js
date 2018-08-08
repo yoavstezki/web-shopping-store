@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose= require('mongoose');
-const config= require('./config/database');
+const config= require('./config/conf');
 
 // mongoose connetion
 mongoose.connect(config.database);
@@ -19,7 +19,7 @@ const users = require('./routes/users.js');
 const products = require('./routes/products.js');
 const shops = require('./routes/shops.js');
 
-const app = express()
+const app = express()   
     .use(express.static(path.join(__dirname, 'public')))
     .use(express.static(path.join(__dirname, 'Client/src')))
     .use(bodyParser.json())

@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const config = require('../config/conf');
+const jwt = require('jsonwebtoken');
 
 router.get('/',(req,res,) => {
     console.log("Server - get  user/");
@@ -19,7 +21,12 @@ router.post('/register', (req, res, next) => {
 // Authenticate
 router.post('/authenticate', (req, res, next) => {
     console.log("Server - post  user/authenticate");
+    const username = req.body.username;
+    const password = req.body.password;
+    User.comparePassword(username, password, err => res.json({success: false, msg:' Wrong password!'}),
+                                             callback => JsonWebTokenSing(username, res));
 });
+
 // Profile
 router.get('/profile', (req, res, next) => {
     console.log("Server - get  user/profile");
@@ -51,3 +58,20 @@ function getUser(req) {
     });
 }
 
+function JsonWebTokenSing(username, res){
+    User.findUser(username, err => res.json({success: false, msg:'Cant find user'}), user => {
+        const token = jwt.sign(user.toJSON(), config.secret,{
+            expiresIn: 604800 // expires in 1 week
+        });
+        
+        res.json({
+            success:true,
+            token:'JWT '+token,
+            user: {
+                id: user._id,
+                name: user.username,
+                email: user.email,
+            }
+        })
+    })
+}

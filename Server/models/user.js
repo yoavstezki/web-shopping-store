@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('../config/database');
+const config = require('../config/conf');
 const bcrypt = require('bcrypt');
 
 
@@ -43,6 +43,24 @@ module.exports.addUser = (newUser, errorAction, callbcakAction) => {
                             .then(callbcakAction)
                             .catch(err => errorAction("Failed to save the user in thd daatabase."));
                 });
+            });
+        }
+    });
+}
+
+module.exports.comparePassword = (username, candidatePassword, errorAction, callbackAction) => {
+    User.findOne({'username': username},  (err, user) => {
+        if(err){
+            errorAction(err);
+        }
+        else{
+            bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
+                if (err || isMatch == false) {
+                    errorAction(err);
+                }
+                else {
+                    callbackAction();
+                }
             });
         }
     });
