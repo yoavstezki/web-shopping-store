@@ -27,16 +27,21 @@ const User = module.exports = mongoose.model("User", UserSchema);
 module.exports.addUser = (newUser, errorAction, callbcakAction) => {
     User.findOne({'username': newUser.username},  (err, user) => {
         if (user) {
-            errorAction();
+            errorAction("User is already exists!");
         }
         else {
             bcrypt.genSalt(10, (err, salt) => {
+                if (err) {
+                    return errorAction("Internal error");
+                }
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if(err) {
-                        errorAction();
+                        errorAction("Internal error");
                     }
                     newUser.password = hash;
-                    newUser.save().then(callbcakAction).catch(errorAction);
+                    newUser.save()
+                            .then(callbcakAction)
+                            .catch(err => errorAction("Failed to save the user in thd daatabase."));
                 });
             });
         }
