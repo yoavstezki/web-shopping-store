@@ -132,3 +132,16 @@ module.exports.searchProductsNameCategoryAndPrice = (product, errorAction, callb
             }
     });
 }
+
+module.exports.searchProductsOfCategory = (categoryName, errorAction, callbackAction) => {
+    Product.find({
+        productCategory:{"$regex" : categoryName, "$options" : "i"}
+    }).limit(5).exec((err, callback) => {
+        if (err) {
+                errorAction(err);
+            }
+        else {
+            callbackAction(callback);
+        }
+    });
+}

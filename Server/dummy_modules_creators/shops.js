@@ -82,7 +82,7 @@ var shopCollection = [shop1,shop2,shop3,shop4,shop5];
 
 
 module.exports = callback => {
-    try{
+    try {
         mongoose.connection.collections['shops'].drop( function(err) {
             console.log('Shops collection dropped');
            for (var i=0; i<shopCollection.length; i++){
@@ -91,7 +91,7 @@ module.exports = callback => {
         });
         return callback(true);
     }
-    catch(err){
+    catch(err) {
         return callback(false);
     }
 }

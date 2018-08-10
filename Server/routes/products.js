@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/product')
 const DummyProductsCreator = require('../dummy_modules_creators/product');
+const ml = require("../models/searching_ml");
 
 router.get('/',(req,res,) => {
     const message = "Server - get products/"
@@ -53,17 +54,30 @@ router.post('/create', (req, res, next) => {
 
 router.post('/search', (req, res, next) => {
     console.log("Server - post  products/search");
+    const userName = req.body.username;
     const product = {
         name: req.body.name,
         category: req.body.category,
         price: req.body.price
     };
-    console.log(`recived price: ${product.price}`)
+    if(userName != '' & product.category != ''){
+        ml.AddToHistory(userName, product.category);
+    }
     if (product.price == '') {
         product.price = 1000000;
     }
     Product.searchProductsNameCategoryAndPrice(product, err => res.json({success: false, msg: 'searching failed '}),
                                                         callback => res.json({callback, success: true, msg: 'Listing product '}));
+});
+router.post('/advertising', (req, res, next) => {
+    const userName = req.body.username;    
+    if(userName){
+        ml.GetCatagory(userName, err => res.json({success: false, msg: err}),
+                                 output => getProductsOfCategory(output, res));
+    }
+    else{
+        res.json({success: false});
+    }
 });
 
 router.get('/productCategoryList', (req, res, next) => {
@@ -85,6 +99,11 @@ router.get('/init',(req,res,next) => {
 });
 
 module.exports = router;
+
+function getProductsOfCategory (categoryName, res) {
+    Product.searchProductsOfCategory(categoryName, err => res.json({success: false, msg:'Failed to get products of category'}),
+                                                   callback => res.json({callback, success: true, msg: 'Listing product '}));
+}
 
 function saveProduct(product, res, successMsg) {
     product.save()

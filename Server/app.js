@@ -2,8 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose= require('mongoose');
-const config= require('./config/conf');
-
+const config= require('./configurations/config');
+const ml = require('./models/searching_ml');
 // mongoose connetion
 mongoose.connect(config.database);
 mongoose.connection
@@ -16,6 +16,7 @@ mongoose.connection
 const port = 8080;
 
 const users = require('./routes/users.js');
+
 const products = require('./routes/products.js');
 const shops = require('./routes/shops.js');
 
