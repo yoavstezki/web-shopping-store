@@ -71,12 +71,12 @@ router.post('/search', (req, res, next) => {
 });
 router.post('/advertising', (req, res, next) => {
     const userName = req.body.username;    
-    if(userName){
+    if(userName) {
         ml.GetCatagory(userName, err => res.json({success: false, msg: err}),
                                  output => getProductsOfCategory(output, res));
     }
-    else{
-        res.json({success: false});
+    else {
+        res.json({success: false}); // what to do here?
     }
 });
 
@@ -102,7 +102,7 @@ module.exports = router;
 
 function getProductsOfCategory (categoryName, res) {
     Product.searchProductsOfCategory(categoryName, err => res.json({success: false, msg:'Failed to get products of category'}),
-                                                   callback => res.json({callback, success: true, msg: 'Listing product '}));
+                                                   callback => res.json({callback, success: true, msg: 'Listing product'}));
 }
 
 function saveProduct(product, res, successMsg) {

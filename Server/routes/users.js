@@ -42,13 +42,13 @@ router.post('/delete',(req,res,next) => {
     console.log("Server - post  user/delete");
     const user = getUser(req);
     User.deleteUser(user.username, err => res.json({success: false, msg:'Delete opperation failed'}), 
-                          callback => res.json({success: true, msg:`Success to delete ${user.username}`}))
+                                   callback => res.json({success: true, msg:`Success to delete ${user.username}`}))
 });
 
 module.exports = router;
 
 function getUser(req) {
-    if(req.body)
+    if (req.body)
     return new User({
         id: req.body._id,
         name: req.body.name,
@@ -60,13 +60,13 @@ function getUser(req) {
 
 function JsonWebTokenSing(username, res){
     User.findUser(username, err => res.json({success: false, msg:'Cant find user'}), user => {
-        const token = jwt.sign(user.toJSON(), config.secret,{
+        const token = jwt.sign(user.toJSON(), config.jwt.jwtSecret,{
             expiresIn: 604800 // expires in 1 week
         });
         
         res.json({
             success:true,
-            token:'JWT '+token,
+            token:'JWT'+token,
             user: {
                 id: user._id,
                 name: user.username,
