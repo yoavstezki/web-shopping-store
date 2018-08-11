@@ -1,9 +1,8 @@
-console.log("user model")
+console.log("user model");
 const mongoose = require('mongoose');
-const config = require('../configurations/config');
 const bcrypt = require('bcrypt');
 
-console.log("user model after requires")
+console.log("user model after requires");
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -26,8 +25,12 @@ const UserSchema = mongoose.Schema({
 
 const User = module.exports = mongoose.model("User", UserSchema);
 
+module.exports.getUserById = (id) => {
+    return User.findById(id);
+};
+
 module.exports.addUser = (newUser, errorAction, callbcakAction) => {
-    User.findOne({'username': newUser.username},  (err, user) => {
+    User.findOne({'username': newUser.username}, (err, user) => {
         if (user) {
             errorAction("User is already exists!");
         }
@@ -37,25 +40,25 @@ module.exports.addUser = (newUser, errorAction, callbcakAction) => {
                     return errorAction("Internal error");
                 }
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if(err) {
+                    if (err) {
                         errorAction("Internal error");
                     }
                     newUser.password = hash;
                     newUser.save()
-                            .then(callbcakAction)
-                            .catch(err => errorAction("Failed to save the user in thd daatabase."));
+                        .then(callbcakAction)
+                        .catch(err => errorAction("Failed to save the user in thd daatabase."));
                 });
             });
         }
     });
-}
+};
 
 module.exports.comparePassword = (username, candidatePassword, errorAction, callbackAction) => {
-    User.findOne({'username': username},  (err, user) => {
-        if(err){
+    User.findOne({'username': username}, (err, user) => {
+        if (err) {
             errorAction(err);
         }
-        else{
+        else {
             bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
                 if (err || isMatch == false) {
                     errorAction(err);
@@ -66,34 +69,27 @@ module.exports.comparePassword = (username, candidatePassword, errorAction, call
             });
         }
     });
-}
-
-module.exports.findUser = (username, errorAction, userAction) =>{
-    User.findOne({'username': username},  (err, user) => {
-        if (user) {
-            userAction(user);
-        }
-        else{
-            errorAction(err);
-        }
-    });
 };
 
-module.exports.findAllUsers = (errorAction, usersAction) => User.find((err, users)=>{
-    if(users){
+module.exports.findUser = (username, errorAction, userAction) => {
+    return User.findOne({'username': username});
+};
+
+module.exports.findAllUsers = (errorAction, usersAction) => User.find((err, users) => {
+    if (users) {
         usersAction(users);
     }
-    else{
+    else {
         errorAction(err);
     }
 });
 
-module.exports.deleteUser = (username, errorAction, callbcakAction) =>{
+module.exports.deleteUser = (username, errorAction, callbcakAction) => {
     User.findOneAndDelete({'username': username}, (err, callback) => {
-        if(callback){
+        if (callback) {
             callbcakAction(callback);
         }
-        else{
+        else {
             errorAction(err);
         }
     })

@@ -8,14 +8,64 @@
 
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-    <ul class="navbar-nav">
-      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link"
-        [routerLink]="['/login']">Login</a></li>
-      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link"
-        [routerLink]="['/register']">Register</a></li>
+    <ul class="nav navbar-nav navbar-left">
+
+      <li class="nav-item dropdown" *ngIf="loggedIn()">
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
+           aria-expanded="false">Products <span class="caret"></span></a>
+        <ul class="dropdown-menu" style="background: transparent; font-weight: bold;">
+          <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['/product']">List</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['products/create']">Add</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['products/search']">Search</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['products/stats']">Stats Count</a>
+          </li>
+          <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
+              [routerLinkActiveOptions]="{exact:true}">
+            <a class="nav-link" [routerLink]="['products/stats2']">Stats Avg</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/shops-map']">Shops Map</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+      </li>
+      <li class="nav-item" *ngIf="!loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li class="nav-item" *ngIf="!loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/register']">Register</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn()">
+        <a class="nav-link" (click)="logout()" href="#">Logout</a>
+      </li>
+      <li>
+        <iframe src="https://free.timeanddate.com/clock/i5rptunc/n676/fcaaa/tct/pct/tt0/tw0/tm1/ts1/tb4" frameborder="0"
+                width="90" height="34" allowTransparency="true"></iframe>
+      </li>
     </ul>
   </div>
-
 
 
 </nav>

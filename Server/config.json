@@ -1,0 +1,11 @@
+{
+  "database": "mongodb://localhost:27017/app",
+  "secret": "mysecrete",
+  "jwt": {
+    "jwtSecret": "MyS3cr3tK3Y",
+    "jwtSession": {
+      "session": false
+    }
+  }
+}
+

@@ -28,8 +28,8 @@ const passwordValidator = Validators.compose([
 
 export class RegisterComponent implements OnInit {
 
-  firstName: FormControl;
-  lastName: FormControl;
+  name: FormControl;
+  username: FormControl;
   email: FormControl;
   password: FormControl;
   registerForm: FormGroup;
@@ -46,24 +46,29 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     const user: User = this.registerForm.value;
 
-    this.userService
-      .create(user)
-      .subscribe((userDate) => {
-        this.router.navigate(['/login'])
+    this.userService.register(user)
+      .subscribe((data: any) => {
+
+        if (data.success) {
+          this.router.navigate(['/login'])
+        }
+        else {
+          //todo: handle errors and display...
+        }
       });
   }
 
   private createFormControls() {
-    this.firstName = new FormControl('', Validators.required);
-    this.lastName = new FormControl('', nameValidator);
+    this.name = new FormControl('', nameValidator);
+    this.username = new FormControl('', nameValidator);
     this.email = new FormControl('', mailValidator);
     this.password = new FormControl('', passwordValidator);
   }
 
   private createFrom() {
     this.registerForm = this.builder.group({
-      firstName: this.firstName,
-      lastName: this.lastName,
+      name: this.name,
+      username: this.username,
       email: this.email,
       password: this.password
     });

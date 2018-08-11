@@ -1,19 +1,29 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {User} from '../../model/user.model';
-import {map} from 'rxjs/operators';
+import {AuthService} from './auth.service';
 
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  create(user: User) {
-    return this.http.post('api/create', user)
-      .pipe(
-        map(user => <User> user)
-      )
+  register(user: User) {
+    return this.http.post('api/users/register', user);
+  }
+
+  getUserProfile() {
+    const userToken = this.authService.getToken();
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': userToken
+      })
+    };
+
+    return this.http.get<User>('api/users/profile', httpOptions);
   }
 }

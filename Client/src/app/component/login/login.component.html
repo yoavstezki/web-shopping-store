@@ -1,0 +1,28 @@
+<div class="row main">
+  <div class="main-login main-center">
+    <h5>Login</h5>
+    <form (submit)="login()">
+
+      <div class="form-group">
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="username" name="userName" placeholder="User Name"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="cols-sm-10">
+          <div class="input-group">
+            <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Password"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group ">
+        <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Login</button>
+      </div>
+
+    </form>
+  </div>
+</div>
