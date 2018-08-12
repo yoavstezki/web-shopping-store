@@ -1,9 +1,7 @@
-console.log("user model")
 const mongoose = require('mongoose');
 const config = require('../configurations/config');
 const bcrypt = require('bcrypt');
 
-console.log("user model after requires")
 
 // User Schema
 const UserSchema = mongoose.Schema({
