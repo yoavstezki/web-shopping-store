@@ -1,0 +1,12 @@
+<div class="row main-profile center" *ngIf="user">
+  <div class="card" style="width: 30rem;">
+    <div class="card-header">
+      User Profile:
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Name: {{user.name}}</li>
+      <li class="list-group-item">User Name: {{user.username}}</li>
+      <li class="list-group-item">Email: {{user.email}}</li>
+    </ul>
+  </div>
+</div>

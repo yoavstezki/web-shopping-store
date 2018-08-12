@@ -9,7 +9,7 @@ router.get('/list',(req,res,next) => {
                      shops => res.json({shops, 'sucsses': true, msg:'Success to fetch all shops'}));
 });
 
-router.get('/getShopsNames', (req, res, next) => {
+router.get('/names', (req, res, next) => {
     Shop.getShopsNames(err => res.json({success: false, msg:'Failed to get shops names'}),
                        names => res.json({names, success:true, msg:'Showing names '})
     );

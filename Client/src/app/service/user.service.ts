@@ -15,15 +15,24 @@ export class UserService {
   }
 
   getUserProfile() {
+    const httpOptions = this.getHttpHeaders();
+
+    return this.http.get<User>('api/users/profile', httpOptions);
+  }
+
+  getAllUsers() {
+    const httpOptions = this.getHttpHeaders();
+    return this.http.get<User[]>('api/users/userslist', httpOptions);
+  }
+
+  private getHttpHeaders() {
     const userToken = this.authService.getToken();
 
-    const httpOptions = {
+    return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': userToken
       })
     };
-
-    return this.http.get<User>('api/users/profile', httpOptions);
   }
 }

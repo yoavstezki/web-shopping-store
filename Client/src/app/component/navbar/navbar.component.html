@@ -13,7 +13,7 @@
       <li class="nav-item dropdown" *ngIf="loggedIn()">
         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
            aria-expanded="false">Products <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background: transparent; font-weight: bold;">
+        <ul class="dropdown-menu" style="background: #212529; font-weight: bold;">
           <li class="nav-item" *ngIf="loggedIn()" [routerLinkActive]="['active']"
               [routerLinkActiveOptions]="{exact:true}">
             <a class="nav-link" [routerLink]="['/product']">List</a>

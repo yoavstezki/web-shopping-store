@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../service/auth.service';
+import {Router} from '@angular/router';
 
 // import {FlashMessagesService} from 'angular2-flash-messages';
 
@@ -10,7 +11,7 @@ import {AuthService} from '../../service/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -21,7 +22,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-
+    this.authService.logout();
+    this.router.navigate(['/login']);
+    return false;
   }
 
 }

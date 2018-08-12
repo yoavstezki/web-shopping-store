@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -9,16 +8,4 @@ import {HttpClient} from '@angular/common/http';
 })
 
 export class HomeComponent {
-
-  constructor(private http: HttpClient) {
-
-  }
-
-  buttonClicked() {
-    this.http.get('/api/healthy', {})
-      .subscribe(data => {
-        console.log(data);
-      })
-  }
-
 }

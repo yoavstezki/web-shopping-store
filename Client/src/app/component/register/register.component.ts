@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 
 //todo: yoavs export validators to util...
-const nameValidator = Validators.compose([Validators.required, Validators.minLength(2)]);
+export const nameValidator = Validators.compose([Validators.required, Validators.minLength(2)]);
 const mailValidator = Validators.compose([
     Validators.required,
     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
