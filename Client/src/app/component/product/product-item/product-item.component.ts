@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {Product} from '../../../../model/product.model';
+import {ProductService} from '../../../service/product.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -8,5 +9,18 @@ import {Product} from '../../../../model/product.model';
 })
 
 export class ProductItemComponent {
-  @Input() product: Product;
+  @Input() product;
+
+  constructor(private productService: ProductService, private router: Router) {
+  }
+
+  onDelete(serial) {
+    this.productService.delete(serial)
+      .subscribe((data: any) => {
+        if (data.success) {
+          this.router.navigate(['/product'])
+        }
+      })
+  }
+
 }

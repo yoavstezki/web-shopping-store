@@ -14,5 +14,35 @@ export class ProductService {
       .pipe(map(products => <Product[]> products))
   }
 
+  productCategoryList() {
+    return this.httpClient.get<string[]>('/api/products/productCategoryList');
+  }
 
+  create(product) {
+    return this.httpClient.post('/api/products/create', product);
+  }
+
+  categoryCount() {
+    return this.httpClient.get('/api/products/categoryCount');
+  }
+
+  categoryAvg() {
+    return this.httpClient.get('/api/products/categoryAvg');
+  }
+
+  getProductBySerial(serial: number) {
+    return this.httpClient.get(`/api/products/${serial}`)
+  }
+
+  update(product) {
+    return this.httpClient.post('/api/products/update', product);
+  }
+
+  search(searchable) {
+    return this.httpClient.post('/api/products/search', searchable);
+  }
+
+  delete(serial: number) {
+    return this.httpClient.get(`/api/products/delete/${serial}`);
+  }
 }

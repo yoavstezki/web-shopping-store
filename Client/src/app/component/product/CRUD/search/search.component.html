@@ -1,0 +1,48 @@
+<div class="container">
+  <h1 class="page-header">Search for product</h1>
+  <form (ngSubmit)="onSearch()">
+    <div [formGroup]="searchForm">
+      <div class="form-group">
+        <div class="col-3">
+          <label for="productName">Product Name</label>
+          <input type="text" class="form-control" id="productName" placeholder="Enter Product Name"
+                 formControlName="productName">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-3">
+          <label for="productCategory">Product Category</label>
+          <select title="Select from the existing Categories" class="form-control" id="productCategory"
+                  placeholder="Enter Product Category" formControlName="productCategory"
+                  [(ngModel)]="productCategory">
+            <option *ngFor="let category of productCategories" [ngValue]="category">{{category}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-3">
+          <label for="productPrice">Product Price (Up-to)</label>
+          <input type="text"
+                 title="The search result will show all product will price equal or lower than given price"
+                 class="form-control" id="productPrice"
+                 placeholder="Enter Product Price" formControlName="productPrice">
+
+        </div>
+
+        <div class="button-div">
+          <input type="submit" class="btn btn-success btn-m " style="margin: 15px;" value="Search">
+          <a [routerLinkActive]="['active']" [routerLink]="['/products/create']" class="btn btn-success">Add product</a>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="row pad">
+    <div class="col-6 pad-item" *ngFor="let p of products">
+      <app-product-item [product]="p"></app-product-item>
+    </div>
+  </div>
+</div>
+

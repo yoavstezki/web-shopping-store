@@ -28,7 +28,17 @@ export class AuthService {
     return localStorage.getItem('id_token');
   }
 
+  getUser() {
+    return localStorage.getItem('user');
+  }
+
   loggedIn() {
     return !this.helper.isTokenExpired(this.getToken());
+  }
+
+  logout() {
+    this.authToken = null;
+    this.user = null;
+    localStorage.clear();
   }
 }

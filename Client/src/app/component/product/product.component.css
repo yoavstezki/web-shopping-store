@@ -1,3 +1,11 @@
 .inline {
   display: inline
 }
+
+.pad {
+  padding-top: 50px;
+}
+
+.pad-item {
+  padding: 40px;
+}

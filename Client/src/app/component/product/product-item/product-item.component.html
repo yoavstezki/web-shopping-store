@@ -1,27 +1,21 @@
-<div class="col-sm-4 col-lg-4 col-md-4">
-  <div class="thumbnail">
+<div class="col-lg-8">
+  <div class="img-thumbnail">
 
-    <img src="{{product.imageUrl}}" onerror="this.src='http://placehold.it/320x150'" alt="">
+    <img src="{{product.imageUrl}}" class="product-image" onerror="this.src='http://placehold.it/320x150'" alt="">
 
     <div class="caption ">
-      <h4 class="pull-right">{{product.price}}</h4>
-      <h2><a href="#">{{product.name}}</a></h2>
-      <h4>{{product.manufacturer}}</h4>
-      <h4>{{product.category}}</h4>
+      <h4 class="pull-right">{{product.productPrice}} $</h4>
+      <h2><a href="#">{{product.productName}}</a></h2>
+      <h4>{{product.productManufacturer}}</h4>
+      <h4>{{product.productCategory}}</h4>
     </div>
 
     <div class="ratings">
       <p class="pull-right">15 reviews</p>
       <p>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <a [routerLinkActive]="['active']" [routerLink]="['/products/update', product.serial]"
-           class="btn btn-success btn-s btn-group-vertical">Edit</a>
-        <a [routerLinkActive]="['active']" [routerLink]="['/products/delete', product.serial]"
-           class="btn btn-danger btn-s">Delete</a>
+        <a [routerLinkActive]="['active']" [routerLink]="['/products/update/' + product.serialNumber]"
+           class="btn btn-success btn-s btn-group-vertical" style="margin: 2px">Edit</a>
+        <button class="btn btn-danger btn-s" (click)="onDelete(product.serialNumber)">Delete</button>
       </p>
     </div>
   </div>

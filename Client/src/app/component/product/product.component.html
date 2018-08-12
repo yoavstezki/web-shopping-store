@@ -1,13 +1,14 @@
-<div class="list-group">
-  <h1 class="page-header">Products list</h1>
-  <a [routerLinkActive]="['active']" [routerLink]="['/products/create']" class="btn btn-success ">Add product</a>
-  <a [routerLinkActive]="['active']" [routerLink]="['/products/search']" class="btn btn-success ">Search product</a>
-</div>
-
 <div class="container">
-  <div class="row inline">
-    <ul class="list-group">
-      <app-product-item *ngFor="let p of products" [product]="p"></app-product-item>
-    </ul>
+  <div class="row">
+    <h1 class="page-header col-3">Products list</h1>
+    <a [routerLinkActive]="['active']" [routerLink]="['/products/create']" class="btn offset-3 col-3">Add product</a>
+    <a [routerLinkActive]="['active']" [routerLink]="['/products/search']" class="btn col-3">Search product</a>
+  </div>
+
+
+  <div class="row pad">
+    <div class="col-6 pad-item" *ngFor="let p of products">
+      <app-product-item [product]="p"></app-product-item>
+    </div>
   </div>
 </div>
