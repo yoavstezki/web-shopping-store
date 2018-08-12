@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {GooglMapService} from '../../service/google-maps/google-map.service';
 import {ShopService} from '../../service/shop.service';
 
 @Component({
@@ -23,15 +22,14 @@ export class ShopsMapComponent implements OnInit {
   //Markers
   markers: Marker[] = [];
 
-  constructor(private googleMapService: GooglMapService, private shopService: ShopService) {
-    this.markers = GooglMapService.getMarkers();
+  constructor(private shopService: ShopService) {
   }
 
   ngOnInit(): void {
     this.shopService.list()
       .subscribe((data: any) => {
         if (data.success) {
-          this.markers = this.googleMapService.pasreJasonShopsList(data);
+
         }
       })
   }
@@ -65,7 +63,7 @@ export class ShopsMapComponent implements OnInit {
     const newLat = $event.coords.lat;
     const newLng = $event.coords.lng;
 
-    this.googleMapService.updateMarker(updMarker, newLat, newLng);
+
   }
 
   addMarker() {
@@ -83,7 +81,7 @@ export class ShopsMapComponent implements OnInit {
     };
 
     this.markers.push(newMarker);
-    this.googleMapService.addMarker(newMarker);
+
   }
 
   removeMarker(marker) {
@@ -94,7 +92,7 @@ export class ShopsMapComponent implements OnInit {
 
       }
     }
-    this.googleMapService.removeMarker(marker);
+
   }
 
 }

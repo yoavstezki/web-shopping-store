@@ -6,8 +6,10 @@ const config = require('./config');
 const ml = require('./models/searching_ml');
 
 const app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+const http = require('http').Server(app);
+
+
+const io = require('socket.io')(http);
 const Tweet = require('./models/tweet');
 const StreamTweets = require('./tweets/stream_tweets_mongoose');
 
@@ -30,9 +32,6 @@ const users = require('./routes/users.js');
 const products = require('./routes/products.js');
 const shops = require('./routes/shops.js');
 
-const app = express();
-
-const http = require('http').Server(app);
 
 app.use(express.static(path.join(__dirname, 'public')))
     .use(express.static(path.join(__dirname, 'Client/src')))
@@ -44,8 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')))
     .use('/api/shops', shops);
 
 require('./config/passport')(passport);
-    //based on https://socket.io/docs/ - with Express
-   io.on('connection', function(socket) {
+//based on https://socket.io/docs/ - with Express
+io.on('connection', function (socket) {
     function forwardTweetsToClient(data) {
         socket.emit('tweet', data) // emit to client
     }
