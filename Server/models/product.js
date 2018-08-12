@@ -117,7 +117,8 @@ module.exports.updateProduct = (newProduct, errorAction, callbackAction) => {
                 weightable: newProduct.weightable,
                 productPrice: newProduct.productPrice,
                 productManufacturer: newProduct.productManufacturer,
-                productStoreName: newProduct.productStoreName
+                productStoreName: newProduct.productStoreName,
+                productImageUrl: newProduct.productImageUrl
             }
         }
         , {new: true}, (err, product) => {

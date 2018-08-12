@@ -135,6 +135,6 @@ function getProduct(req) {
             productPrice: req.body.price,
             productManufacturer: req.body.manufacturer,
             productStoreName: req.body.storeName,
-            productImageUrl: req.body.productImageUrl,
+            productImageUrl: req.body.imageUrl,
         });
 }

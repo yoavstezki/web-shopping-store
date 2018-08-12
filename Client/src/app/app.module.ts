@@ -18,7 +18,6 @@ import {ProductComponent} from './component/product/product.component';
 import {AboutComponent} from './component/about/about.component';
 import {DashboardComponent} from './component/dashboard/dashboard.component';
 import {ShopsMapComponent} from './component/shops-map/shops-map.component';
-import {GooglMapService} from './service/google-maps/google-map.service';
 import {ShopService} from './service/shop.service';
 import {ProductService} from './service/product.service';
 import {CreateProductComponent} from './component/product/CRUD/create/create-product.component';
@@ -71,7 +70,7 @@ const appRoutes: Routes = [
     HttpClientModule
 
   ],
-  providers: [UserService, AuthService, GooglMapService, ShopService, ProductService],
+  providers: [UserService, AuthService, ShopService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
