@@ -69,13 +69,13 @@ router.post('/search', (req, res, next) => {
         callback => res.json({callback, success: true, msg: 'Listing product '}));
 });
 router.post('/advertising', (req, res, next) => {
-    const userName = req.body.username;
-    if (userName) {
+    const userName = req.body.username;    
+    if(userName) {
         ml.GetCatagory(userName, err => res.json({success: false, msg: err}),
             output => getProductsOfCategory(output, res));
     }
     else {
-        res.json({success: false});
+        res.json({success: false}); // what to do here?
     }
 });
 
